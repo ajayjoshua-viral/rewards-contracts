@@ -11,7 +11,7 @@ contract Reward is ERC20, ERC20Snapshot, Ownable, Pausable {
     uint256 public rewardamount;
     uint256 public rewardfortheuser;
     uint256 public impression = 0.0;
-    address[] public users = [0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db,0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB,0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB,0x17F6AD8Ef982297579C203069C1DbfFE4348c372];
+    address[] public users = [0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db,0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB,0x617F2E2fD72FD9D5503197092aC168c91465E7f2,0x17F6AD8Ef982297579C203069C1DbfFE4348c372];
     struct Userinfo{
         address payable userwallet;
         uint256 userimpression;
@@ -60,9 +60,10 @@ contract Reward is ERC20, ERC20Snapshot, Ownable, Pausable {
         return rewardfortheuser;
     }
 
-    function intialize() external view onlyOwner {
+    function intialize() public onlyOwner {
         for(uint256 i = 0 ; i < users.length ; i++){
-            Userinfo({userwallet:payable(users[i]),userimpression:10});
+          Userinfo memory userinfopush =  Userinfo({userwallet:payable(users[i]),userimpression:10});
+          userinfo.push(userinfopush);
         }
     }
 }
