@@ -7,7 +7,6 @@ import "@openzeppelin/contracts@4.5.0/access/Ownable.sol";
 import "@openzeppelin/contracts@4.5.0/security/Pausable.sol";
 
 contract Reward is ERC20, ERC20Snapshot, Ownable, Pausable {
-    
     uint256 public rewardamount;
     uint256 public rewardfortheuser;
     uint256 public impression = 0.0;
@@ -16,8 +15,7 @@ contract Reward is ERC20, ERC20Snapshot, Ownable, Pausable {
         address payable userwallet;
         uint256 userimpression;
     }
-    Userinfo[] public userinfo;
-
+    mapping(address => Userinfo) userinfo1;
     constructor() ERC20("reward", "RWD") {}
 
     function snapshot() public onlyOwner {
@@ -60,10 +58,12 @@ contract Reward is ERC20, ERC20Snapshot, Ownable, Pausable {
         return rewardfortheuser;
     }
 
-    function intialize() public onlyOwner {
+    function intialize() public view onlyOwner {
         for(uint256 i = 0 ; i < users.length ; i++){
-          Userinfo memory userinfopush =  Userinfo({userwallet:payable(users[i]),userimpression:10});
-          userinfo.push(userinfopush);
+           Userinfo memory userinfo = userinfo1[users[i]];
+           userinfo.userwallet = payable(users[i]);
+           userinfo.userimpression = 10;
         }
     }
+
 }
