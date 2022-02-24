@@ -55,6 +55,7 @@ contract Reward is ERC20, ERC20Snapshot, Ownable, Pausable {
     
     function claim(uint256 impressionoftheuser) public {                         //claim function
         require(totalimp != 0,"you cant claim your rewards yet");
+        require(rewardamount != 0,"you cant claim your rewards yet");
         impression = ((impressionoftheuser*100) / totalimp);
         rewardfortheuser = (rewardamount * impression)/100 ;
         payable(msg.sender).transfer(rewardfortheuser);
