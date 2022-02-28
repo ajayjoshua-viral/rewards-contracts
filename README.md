@@ -1,1 +1,1 @@
-# rewards-contracts
+# rewards-contract
